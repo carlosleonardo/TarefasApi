@@ -27,17 +27,19 @@ if (app.Environment.IsDevelopment())
 	});
 }
 
-app.MapGet("/tarefas", async (TarefaDb db) =>
+var tarefasItens = app.MapGroup("/tarefas");
+
+tarefasItens.MapGet("/", async (TarefaDb db) =>
 {
 	return await db.Tarefas.ToListAsync();
 });
 
-app.MapGet("/tarefas/complete", async (TarefaDb db) =>
+tarefasItens.MapGet("/complete", async (TarefaDb db) =>
 {
 	return await db.Tarefas.Where(t => t.IsComplete).ToListAsync();
 });
 
-app.MapGet("/tarefas/{id}", async (int id, TarefaDb db) =>
+tarefasItens.MapGet("/{id}", async (int id, TarefaDb db) =>
 {
 	return await db.Tarefas.FindAsync(id)
 		is Tarefa tarefa
@@ -45,14 +47,14 @@ app.MapGet("/tarefas/{id}", async (int id, TarefaDb db) =>
 		: Results.NotFound();
 });
 
-app.MapPost("/tarefas", async (Tarefa tarefa, TarefaDb db) =>
+tarefasItens.MapPost("/", async (Tarefa tarefa, TarefaDb db) =>
 {
 	db.Tarefas.Add(tarefa);
 	await db.SaveChangesAsync();
 	return Results.Created($"/tarefas/{tarefa.Id}", tarefa);
 });
 
-app.MapPut("/tarefas/{id}", async (int id, Tarefa inputTarefa, TarefaDb db) =>
+tarefasItens.MapPut("/{id}", async (int id, Tarefa inputTarefa, TarefaDb db) =>
 {
 	var tarefa = await db.Tarefas.FindAsync(id);
 	if (tarefa is null) return Results.NotFound();
@@ -62,7 +64,7 @@ app.MapPut("/tarefas/{id}", async (int id, Tarefa inputTarefa, TarefaDb db) =>
 	return Results.NoContent();
 });
 
-app.MapDelete("/tarefas/{id}", async (int id, TarefaDb db) =>
+tarefasItens.MapDelete("/{id}", async (int id, TarefaDb db) =>
 {
 	if (await db.Tarefas.FindAsync(id) is Tarefa tarefa)
 	{
