@@ -5,16 +5,36 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TarefaDb>(opt => opt.UseInMemoryDatabase("TodoList"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOpenApiDocument(config =>
+{
+	config.DocumentName = "TodoAPI";
+	config.Title = "TarefasAPI v1";
+	config.Version = "v1";
+});
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+	app.UseOpenApi();
+	app.UseSwaggerUi(config =>
+	{
+		config.DocumentTitle = "TarefasAPI";
+		config.Path = "/swagger";
+		config.DocumentPath = "/swagger/{documentName}/swagger.json";
+		config.DocExpansion = "list";
+	});
+}
 
 app.MapGet("/tarefas", async (TarefaDb db) =>
 {
-	await db.Tarefas.ToListAsync();
+	return await db.Tarefas.ToListAsync();
 });
 
 app.MapGet("/tarefas/complete", async (TarefaDb db) =>
 {
-	await db.Tarefas.Where(t => t.IsComplete).ToListAsync();
+	return await db.Tarefas.Where(t => t.IsComplete).ToListAsync();
 });
 
 app.MapGet("/tarefas/{id}", async (int id, TarefaDb db) =>
