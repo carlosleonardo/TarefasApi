@@ -33,14 +33,14 @@ tarefasItens.MapGet("/", ObterTarefas);
 
 static async Task<IResult> ObterTarefas(TarefaDb db)
 {
-	return TypedResults.Ok(await db.Tarefas.ToListAsync());
+	return TypedResults.Ok(await db.Tarefas.Select(x => new TarefaDTO(x)).ToListAsync());
 }
 
 tarefasItens.MapGet("/complete", ObterTarefasCompletas);
 
 static async Task<IResult> ObterTarefasCompletas(TarefaDb db)
 {
-	return TypedResults.Ok(await db.Tarefas.Where(t => t.IsComplete).ToListAsync());
+	return TypedResults.Ok(await db.Tarefas.Where(t => t.IsComplete).Select(x => new TarefaDTO(x)).ToListAsync());
 }
 
 tarefasItens.MapGet("/{id}", ObterTarefaPorid);
@@ -49,22 +49,28 @@ static async Task<IResult> ObterTarefaPorid(int id, TarefaDb db)
 {
 	return await db.Tarefas.FindAsync(id)
 			is Tarefa tarefa
-			? TypedResults.Ok(tarefa)
+			? TypedResults.Ok(new TarefaDTO(tarefa))
 			: TypedResults.NotFound();
 }
 
 tarefasItens.MapPost("/", CriarTarefa);
 
-static async Task<IResult> CriarTarefa(Tarefa tarefa, TarefaDb db)
+static async Task<IResult> CriarTarefa(TarefaDTO tarefaDTO, TarefaDb db)
 {
-	db.Tarefas.Add(tarefa);
+	var tarefa = new Tarefa
+	{
+		Name = tarefaDTO.Name,
+		IsComplete = tarefaDTO.IsComplete
+	};
+	db.Tarefas.Add(tarefa
+	);
 	await db.SaveChangesAsync();
-	return TypedResults.Created($"/tarefas/{tarefa.Id}", tarefa);
+	return TypedResults.Created($"/tarefas/{tarefa.Id}", new TarefaDTO(tarefa));
 }
 
 tarefasItens.MapPut("/{id}", AtualizarTarefa);
 
-static async Task<IResult> AtualizarTarefa(int id, Tarefa inputTarefa, TarefaDb db)
+static async Task<IResult> AtualizarTarefa(int id, TarefaDTO inputTarefa, TarefaDb db)
 {
 	var tarefa = await db.Tarefas.FindAsync(id);
 	if (tarefa is null) return TypedResults.NotFound();
