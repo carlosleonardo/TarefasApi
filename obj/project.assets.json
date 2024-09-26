@@ -3514,33 +3514,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carlo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\s861321135\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carlo\\Documents\\Projetos\\dotnet\\TarefasApi\\TarefasApi.csproj",
+      "projectUniqueName": "C:\\Users\\s861321135\\Documents\\Projetos\\dotnet\\TarefasApi\\TarefasApi.csproj",
       "projectName": "TarefasApi",
-      "projectPath": "C:\\Users\\carlo\\Documents\\Projetos\\dotnet\\TarefasApi\\TarefasApi.csproj",
-      "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carlo\\Documents\\Projetos\\dotnet\\TarefasApi\\obj\\",
+      "projectPath": "C:\\Users\\s861321135\\Documents\\Projetos\\dotnet\\TarefasApi\\TarefasApi.csproj",
+      "packagesPath": "C:\\Users\\s861321135\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\s861321135\\Documents\\Projetos\\dotnet\\TarefasApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\s861321135\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\carlo\\OneDrive\\Documentos\\NuGetPackages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3589,6 +3581,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.8, 8.0.8]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.8, 8.0.8]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.8, 8.0.8]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.8, 8.0.8]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
